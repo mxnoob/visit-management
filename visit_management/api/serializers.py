@@ -18,17 +18,5 @@ class VisitSerializer(serializers.ModelSerializer):
             "latitude",
             "longitude",
         )
-        extra_kwargs = {
-            "date": {"required": False, "allow_null": True},
-            "latitude": {
-                "required": True,
-                "allow_null": False,
-                "write_only": True,
-            },
-            "longitude": {
-                "required": True,
-                "allow_null": False,
-                "write_only": True,
-            },
-        }
+        write_only_fields = ("latitude", "longitude")
         read_only_fields = ("id", "date")

@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 
-from core.models import Worker
+from core.models import Worker, Shop, Visit
 from .serializers import VisitSerializer, ShopSerializer
 
 
@@ -27,9 +27,9 @@ class ShopListViews(APIView):
 
 class VisitViews(APIView):
     def post(self, request, shop_id, format=None):
-        request_data = request.data
         worker = get_worker(request)
-        serializer = VisitSerializer(data=request_data)
+        get_object_or_404(Shop, id=shop_id, worker=worker)
+        serializer = VisitSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save(worker=worker, shop_id=shop_id)
 
