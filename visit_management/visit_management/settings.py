@@ -69,8 +69,12 @@ WSGI_APPLICATION = "visit_management.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": getenv("POSTGRES_DB", "django"),
+        "USER": getenv("POSTGRES_USER", "django"),
+        "PASSWORD": getenv("POSTGRES_PASSWORD", ""),
+        "HOST": getenv("DB_HOST", "db"),
+        "PORT": getenv("DB_PORT", 5432),
     }
 }
 
