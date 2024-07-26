@@ -20,8 +20,15 @@ services:
     depends_on:
       db:
         condition: service_healthy
+
+  nginx:
+    build: nginx/.
+    volumes:
+      - staticfiles:/staticfiles/
     ports:
-      - "8000:8000"
+      - "8000:80"
+    depends_on:
+      - backend
 
 volumes:
   staticfiles:
